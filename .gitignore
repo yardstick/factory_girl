@@ -7,3 +7,4 @@ coverage
 .bundle
 tmp
 bin
+spec/benchmark.db
