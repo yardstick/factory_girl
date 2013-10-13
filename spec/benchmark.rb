@@ -131,27 +131,35 @@ establish_connection
 benchmark_count = 5_000
 
 Benchmark.bmbm(25) do |benchmark|
-  run_benchmark("build x#{benchmark_count}", benchmark) do
-    benchmark_count.times { FactoryGirl.build(:admin) }
-  end
+  # run_benchmark("build x#{benchmark_count}", benchmark) do
+  #   benchmark_count.times { FactoryGirl.build(:admin) }
+  # end
 
-  run_benchmark("trait build x#{benchmark_count}", benchmark) do
-    benchmark_count.times { FactoryGirl.build(:admin_with_traits) }
-  end
+  # run_benchmark("trait build x#{benchmark_count}", benchmark) do
+  #   benchmark_count.times { FactoryGirl.build(:admin_with_traits) }
+  # end
 
-  run_benchmark("inline trait build x#{benchmark_count}", benchmark) do
-    benchmark_count.times { FactoryGirl.build(:admin, :with_login) }
-  end
+  # run_benchmark("inline trait build x#{benchmark_count}", benchmark) do
+  #   benchmark_count.times { FactoryGirl.build(:admin, :with_login) }
+  # end
 
-  run_benchmark("deep build x#{benchmark_count}", benchmark) do
-    benchmark_count.times { FactoryGirl.build(:triple_nested_admin) }
+  # run_benchmark("deep build x#{benchmark_count}", benchmark) do
+  #   benchmark_count.times { FactoryGirl.build(:triple_nested_admin) }
+  # end
+
+  run_benchmark("overrides build x#{benchmark_count}", benchmark) do
+    benchmark_count.times { FactoryGirl.build(:admin, admin: false, email: 'foo@example.com', upper_email: 'foo', login: 'bar', name: 'boo') }
   end
 
   run_benchmark("overrides build x#{benchmark_count}", benchmark) do
     benchmark_count.times { FactoryGirl.build(:admin, admin: false, email: 'foo@example.com') }
   end
 
-  run_benchmark("attributes_for x#{benchmark_count}", benchmark) do
-    benchmark_count.times { FactoryGirl.attributes_for(:admin) }
+  run_benchmark("base build x#{benchmark_count}", benchmark) do
+    benchmark_count.times { FactoryGirl.build(:admin) }
   end
+
+  # run_benchmark("attributes_for x#{benchmark_count}", benchmark) do
+  #   benchmark_count.times { FactoryGirl.attributes_for(:admin) }
+  # end
 end
