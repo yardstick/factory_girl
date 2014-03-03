@@ -1,5 +1,20 @@
 require 'spec_helper'
 
+describe FactoryGirl::DefinitionProxy do
+  subject     { FactoryGirl::Definition.new }
+  let(:proxy) { FactoryGirl::DefinitionProxy.new(subject) }
+
+  it "should not proxy instance variable methods" do
+    subject.expects(:instance_variable_get).never
+    subject.expects(:instance_variable_set).never
+    subject.expects(:instance_variable_defined?).never
+
+    proxy.instance_variable_defined?('@test').should == false
+    proxy.instance_variable_set('@test', 1).should == 1
+    proxy.instance_variable_get('@test').should == 1
+  end
+end
+
 describe FactoryGirl::DefinitionProxy, "#add_attribute" do
   subject     { FactoryGirl::Definition.new }
   let(:proxy) { FactoryGirl::DefinitionProxy.new(subject) }
