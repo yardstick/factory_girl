@@ -71,7 +71,7 @@ GEM
     term-ansicolor (1.0.6)
     timecop (0.3.5)
     tzinfo (0.3.29)
-    yard (0.7.2)
+    yard (0.9.25)
 
 PLATFORMS
   ruby
